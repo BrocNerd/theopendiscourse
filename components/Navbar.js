@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <Link href="/" className="text-xl font-bold">
-        My Website
+        The Open Discourse
       </Link>
       <div className="flex gap-4">
         <Link href="/" className="hover:underline">
