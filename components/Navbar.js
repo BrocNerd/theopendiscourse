@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FiMenu, FiX } from "react-icons/fi"; // Import icons for mobile menu
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false); // Track menu state
   const router = useRouter();
 
   useEffect(() => {
@@ -38,21 +40,21 @@ export default function Navbar() {
 
   return (
     <nav className="bg-black text-white px-6 py-3 flex items-center justify-between shadow-md">
-      {/* Left: Website Name (Larger Text for Impact) */}
+      {/* Left: Website Name */}
       <Link href="/" className="text-2xl font-bold tracking-wide hover:opacity-80 transition">
         The Open Discourse
       </Link>
 
-      {/* Center: Fully Centered Navigation Links (Larger & Spread Out) */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 flex space-x-8">
+      {/* Center: Desktop Navigation Links */}
+      <div className="hidden md:flex space-x-8">
         <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
         <Link href="/discourse" className="text-lg hover:text-gray-400 transition">Discourse</Link>
         <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
         <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
       </div>
 
-      {/* Right: Authentication (Sleek Log In/Log Out) */}
-      <div>
+      {/* Right: Authentication */}
+      <div className="hidden md:block">
         {user ? (
           <button
             onClick={handleLogout}
@@ -68,6 +70,37 @@ export default function Navbar() {
           </Link>
         )}
       </div>
+
+      {/* Mobile Menu Button (Hamburger) */}
+      <button className="md:hidden text-white text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <FiX /> : <FiMenu />}
+      </button>
+
+      {/* Mobile Navigation Menu (Dropdown) */}
+      {menuOpen && (
+        <div className="absolute top-14 left-0 w-full bg-black text-white flex flex-col items-center space-y-4 py-6 md:hidden">
+          <Link href="/" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/discourse" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Discourse</Link>
+          <Link href="/events" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Events</Link>
+          <Link href="/about" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>About</Link>
+
+          {/* Mobile Log In/Out Button */}
+          {user ? (
+            <button
+              onClick={() => { handleLogout(); setMenuOpen(false); }}
+              className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition"
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link href="/auth">
+              <button className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition">
+                Log In
+              </button>
+            </Link>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
