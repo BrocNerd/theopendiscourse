@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../utils/supabase";
 import { useRouter } from "next/navigation";
 
-export default function Auth() {
+export default function Page() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,35 +52,43 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-3xl font-bold mb-4">Login / Sign Up</h1>
-      <input
-        className="p-2 mb-2 text-black rounded"
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        className="p-2 mb-2 text-black rounded"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button
-        className="p-2 bg-blue-500 hover:bg-blue-600 rounded mb-2"
-        onClick={handleSignUp}
-      >
-        Sign Up
-      </button>
-      <button
-        className="p-2 bg-green-500 hover:bg-green-600 rounded"
-        onClick={handleLogin}
-      >
-        Log In
-      </button>
-      {message && <p className="mt-4">{message}</p>}
-    </div>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900 px-6 py-12">
+      <h1 className="text-5xl font-bold mb-6">Login / Sign Up</h1>
+      
+      {/* Input Fields */}
+      <div className="w-full max-w-sm">
+        <input
+          className="w-full p-3 mb-3 border border-gray-300 rounded-lg text-gray-900"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg text-gray-900"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        {/* Buttons */}
+        <button
+          className="w-full p-3 bg-black text-white rounded-lg hover:bg-gray-800 transition mb-3"
+          onClick={handleSignUp}
+        >
+          Sign Up
+        </button>
+        <button
+          className="w-full p-3 bg-white text-black border border-black rounded-lg hover:bg-gray-200 transition"
+          onClick={handleLogin}
+        >
+          Log In
+        </button>
+      </div>
+
+      {/* Message Display */}
+      {message && <p className="mt-4 text-gray-700">{message}</p>}
+    </main>
   );
 }

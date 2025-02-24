@@ -16,10 +16,12 @@ export default function Navbar() {
       }
     };
 
-    // Listen for auth changes (fix issue where login status doesn't update)
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-    });
+    // Listen for auth changes
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+      }
+    );
 
     fetchUser();
 
@@ -35,32 +37,34 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <Link href="/" className="text-xl font-bold">
+    <nav className="bg-black text-white px-6 py-3 flex items-center justify-between shadow-md">
+      {/* Left: Website Name (Larger Text for Impact) */}
+      <Link href="/" className="text-2xl font-bold tracking-wide hover:opacity-80 transition">
         The Open Discourse
       </Link>
-      <div className="flex gap-4">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>
-        <Link href="/about" className="hover:underline">
-              About
-            </Link>
+
+      {/* Center: Fully Centered Navigation Links (Larger & Spread Out) */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 flex space-x-8">
+        <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
+        <Link href="/discourse" className="text-lg hover:text-gray-400 transition">Discourse</Link>
+        <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
+        <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
+      </div>
+
+      {/* Right: Authentication (Sleek Log In/Log Out) */}
+      <div>
         {user ? (
-          <>
-            <Link href="/dashboard" className="hover:underline">
-              Dashboard
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
-            >
-              Log Out
-            </button>
-          </>
+          <button
+            onClick={handleLogout}
+            className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition"
+          >
+            Log Out
+          </button>
         ) : (
-          <Link href="/auth" className="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
-            Log In
+          <Link href="/auth">
+            <button className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition">
+              Log In
+            </button>
           </Link>
         )}
       </div>
