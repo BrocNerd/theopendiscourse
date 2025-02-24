@@ -39,7 +39,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-black text-white px-6 py-3 flex items-center justify-between shadow-md">
+    <nav className="relative bg-black text-white px-6 py-2 flex items-center justify-between shadow-md z-50">
       {/* Left: Website Name */}
       <Link href="/" className="text-2xl font-bold tracking-wide hover:opacity-80 transition">
         The Open Discourse
@@ -72,13 +72,16 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu Button (Hamburger) */}
-      <button className="md:hidden text-white text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+      <button
+        className="md:hidden text-white text-2xl z-50 relative"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         {menuOpen ? <FiX /> : <FiMenu />}
       </button>
 
       {/* Mobile Navigation Menu (Dropdown) */}
       {menuOpen && (
-        <div className="absolute top-14 left-0 w-full bg-black text-white flex flex-col items-center space-y-4 py-6 md:hidden">
+        <div className="absolute top-14 left-0 w-full bg-black text-white flex flex-col items-center space-y-4 py-6 md:hidden z-40">
           <Link href="/" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/discourse" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Discourse</Link>
           <Link href="/events" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Events</Link>
