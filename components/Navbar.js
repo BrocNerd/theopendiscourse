@@ -47,10 +47,11 @@ export default function Navbar() {
 
       {/* Center: Desktop Navigation Links */}
       <div className="hidden md:flex space-x-8">
-        <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
-        <Link href="/discourse" className="text-lg hover:text-gray-400 transition">Discourse</Link>
-        <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
-        <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
+  <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
+  <Link href="/discourse" className="text-lg hover:text-gray-400 transition">Discourse</Link>
+  <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
+  <Link href="/blog" className="text-lg hover:text-gray-400 transition">Blog</Link>
+  <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
       </div>
 
       {/* Right: Authentication */}
@@ -85,6 +86,7 @@ export default function Navbar() {
           <Link href="/" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/discourse" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Discourse</Link>
           <Link href="/events" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Events</Link>
+          <Link href="/blog" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Blog</Link>
           <Link href="/about" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>About</Link>
 
           {/* Mobile Log In/Out Button */}

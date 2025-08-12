@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col justify-start bg-gray-100 text-gray-900 px-8 pt-16 h-screen min-h-screen overflow-hidden">
+    <main className="relative flex flex-col justify-start bg-gray-100 text-gray-900 px-8 pt-16 h-screen min-h-[150vh] overflow-hidden">
       
       {/* 🌍 Desktop Version (100% Preserved) */}
       <div className="hidden md:flex w-full h-full">
