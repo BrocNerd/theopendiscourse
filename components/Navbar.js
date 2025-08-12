@@ -39,40 +39,40 @@ export default function Navbar() {
   };
 
   return (
-  <nav className="relative bg-black text-white px-6 py-2 flex items-center justify-center shadow-md z-50">
+  <nav className="relative bg-black text-white px-6 py-2 flex items-center justify-between shadow-md z-50">
 
-      <div className="flex flex-1 items-center justify-center max-w-7xl w-full">
-        {/* Left: Website Name */}
-        <Link href="/" className="text-2xl font-bold tracking-wide hover:opacity-80 transition mr-8">
+      {/* Left: Website Name */}
+      <div className="flex items-center flex-shrink-0">
+        <Link href="/" className="text-2xl font-bold tracking-wide hover:opacity-80 transition">
           The Open Discourse
         </Link>
+      </div>
 
-        {/* Center: Desktop Navigation Links */}
-        <div className="hidden md:flex space-x-8">
-          <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
-          <Link href="/discourse" className="text-lg hover:text-gray-400 transition">Discourse</Link>
-          <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
-          <Link href="/blog" className="text-lg hover:text-gray-400 transition">Blog</Link>
-          <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
-        </div>
+      {/* Center: Desktop Navigation Links */}
+      <div className="hidden md:flex flex-1 justify-center space-x-8">
+        <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
+        <Link href="/discourse" className="text-lg hover:text-gray-400 transition">Discourse</Link>
+        <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
+        <Link href="/blog" className="text-lg hover:text-gray-400 transition">Blog</Link>
+        <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
+      </div>
 
-        {/* Right: Authentication */}
-        <div className="hidden md:block ml-8">
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition"
-            >
-              Log Out
+      {/* Right: Authentication */}
+      <div className="hidden md:block flex-shrink-0">
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition"
+          >
+            Log Out
+          </button>
+        ) : (
+          <Link href="/auth">
+            <button className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition">
+              Log In
             </button>
-          ) : (
-            <Link href="/auth">
-              <button className="border border-white px-4 py-2 rounded-md text-white hover:bg-white hover:text-black transition">
-                Log In
-              </button>
-            </Link>
-          )}
-        </div>
+          </Link>
+        )}
       </div>
 
       {/* Mobile Menu Button (Hamburger) */}
