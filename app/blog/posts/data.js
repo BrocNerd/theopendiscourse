@@ -1,23 +1,19 @@
 export const blogPosts = [
   {
     slug: "welcome-to-broc-blog",
-    title: "Welcome to Broc Blog!",
+    title: "Welcome to Broc Blog",
     date: "2025-08-12",
-    excerpt: "This is the start of my personal blog, where I’ll share thoughts, stories, and more.",
-    content: `Welcome to Broc Blog! This is my personal space on the web to share my thoughts, stories, and whatever else comes to mind. Stay tuned for more!`,
-  },
-  {
-    slug: "summer-adventures",
-    title: "Summer Adventures",
-    date: "2025-07-20",
-    excerpt: "A quick recap of my summer adventures and what I learned along the way.",
-    content: `This summer was full of new experiences, travel, and learning. Here’s a look back at some of my favorite moments and what I took away from them.`,
-  },
-  {
-    slug: "why-i-started-blogging",
-    title: "Why I Started Blogging",
-    date: "2025-06-10",
-    excerpt: "Why I decided to start writing and what I hope to achieve.",
-    content: `I’ve always enjoyed writing, and starting this blog is a way for me to connect, reflect, and grow. I hope you enjoy reading!`,
+    excerpt: "The word blog has always made me cringe, but here I am.",
+    content: `Welcome to Broc Blog
+
+The word blog has always made me cringe, but here I am.
+
+I watch so many people put their thoughts and ideas out into the world, but I rarely join them. There are many reasons for this—laziness, fear (of being cringy and wrong), lack of knowledge, perfectionism.
+
+I’ve always wanted to get my ideas out there, to share them, and I do with those close to me. But I’m always worried about what others will think. I’m not sure my ideas are right, but I know they have merit—so here I am, putting them out into the world.
+
+There’s a good chance these blogs will sound unoriginal and basic, like a great value knock-off. And I’m sure someone, somewhere, has written them better. But if I don’t start now, I know I’ll wake up in five years mad at myself for never trying.
+
+Maybe by then I’ll have ideas that I’m confident are original. And who knows, maybe I already do.`,
   },
 ];

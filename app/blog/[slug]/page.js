@@ -16,7 +16,7 @@ export default function BlogPostPage({ params }) {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white pb-16 px-4">
-      <article className="max-w-3xl mx-auto bg-gray-900 rounded-lg shadow-lg border border-gray-800 p-8 mt-12">
+      <article className="max-w-3xl mx-auto bg-gray-900 rounded-lg shadow-lg border border-gray-800 p-8">
         <h1 className="text-4xl font-extrabold mb-2">{post.title}</h1>
         <p className="text-gray-400 text-sm mb-6">{new Date(post.date).toLocaleDateString()}</p>
         <div className="text-lg text-gray-200 whitespace-pre-line">{post.content}</div>
