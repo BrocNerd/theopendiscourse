@@ -10,10 +10,7 @@ export default function BlogPage() {
 		<main className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white pb-16">
 			{/* Hero Section */}
 			<section className="text-center py-16 px-4">
-				<h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Broc Blog</h1>
-				<p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-6">
-					My personal thoughts, stories, and reflections. Enjoy reading!
-				</p>
+				<h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Discourses</h1>
 			</section>
 
 			{/* Most Recent Blog Post */}
@@ -40,7 +37,7 @@ export default function BlogPage() {
 								<article className="bg-gray-900 rounded-lg border border-gray-800 p-6 hover:bg-gray-800 transition cursor-pointer">
 									<h4 className="text-2xl font-semibold mb-1">{post.title}</h4>
 									<p className="text-gray-400 text-sm mb-2">{new Date(post.date).toLocaleDateString()}</p>
-									<p className="text-gray-200 mb-2 line-clamp-2">{post.excerpt}</p>
+									<p className="text-gray-200 mb-2 line-clamp-4">{post.excerpt}</p>
 									<span className="text-blue-400 hover:underline font-semibold">Read More →</span>
 								</article>
 							</Link>

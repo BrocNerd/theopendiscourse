@@ -1,10 +1,10 @@
 export const blogPosts = [
   {
     slug: "welcome-to-broc-blog",
-    title: "Welcome to Broc Blog",
+  title: "Welcome to Blog",
     date: "2025-08-12",
     excerpt: "The word blog has always made me cringe, but here I am.",
-    content: `Welcome to Broc Blog
+  content: `Welcome to Blog
 
 The word blog has always made me cringe, but here I am.
 
