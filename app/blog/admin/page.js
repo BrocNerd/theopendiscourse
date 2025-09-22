@@ -1,3 +1,8 @@
+import { redirect } from 'next/navigation'
+
+export default function BlogAdminRedirect() {
+  redirect('/discourses/admin')
+}
 "use client";
 import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";

@@ -1,3 +1,9 @@
+import { redirect } from 'next/navigation'
+
+export default function BlogRedirect() {
+  // Permanent redirect from /blog to /discourses
+  redirect('/discourses')
+}
 import Link from "next/link";
 import { blogPosts } from "./posts/data";
 
