@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
+import { blogPosts as staticPosts } from "../posts/data";
 import Link from "next/link";
 
 export default function DiscoursesAdmin() {
@@ -10,6 +11,7 @@ export default function DiscoursesAdmin() {
   const [form, setForm] = useState({ title: "", slug: "", excerpt: "", content: "" });
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -88,6 +90,35 @@ export default function DiscoursesAdmin() {
     if (!window.confirm("Delete this post?")) return;
     await supabase.from("blog_posts").delete().eq("id", id);
     fetchPosts();
+  }
+
+  async function importStaticPosts() {
+    setStatusMessage("");
+    if (!window.confirm("Import bundled posts into Supabase? This will skip posts with matching slugs.")) return;
+    try {
+      // fetch existing slugs
+      const { data: existing, error: err } = await supabase.from("blog_posts").select("slug");
+      if (err) throw err;
+      const existingSlugs = new Set((existing || []).map((r) => r.slug));
+      const toInsert = staticPosts.filter((p) => !existingSlugs.has(p.slug)).map((p) => ({
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt || "",
+        content: p.content || "",
+        created_at: p.date ? new Date(p.date).toISOString() : undefined,
+      }));
+      if (toInsert.length === 0) {
+        setStatusMessage("No bundled posts to import (all slugs already exist).");
+        return;
+      }
+      const { error: insertErr } = await supabase.from("blog_posts").insert(toInsert);
+      if (insertErr) throw insertErr;
+      setStatusMessage(`Imported ${toInsert.length} post(s).`);
+      fetchPosts();
+    } catch (e) {
+      console.error(e);
+      setStatusMessage("Import failed: " + (e.message || e.toString()));
+    }
   }
 
   if (loading) return <div className="text-white p-8">Loading...</div>;
