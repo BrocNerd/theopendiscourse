@@ -1,7 +1,33 @@
-import { blogPosts } from "../posts/data";
+import EditPostInline from "@/components/EditPostInline";
+import { blogPosts as staticPosts } from "../posts/data";
+import { supabase } from "@/utils/supabase";
 
-export default function DiscoursesPostPage({ params }) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export default async function DiscoursesPostPage({ params }) {
+  let post = null;
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id,title,slug,excerpt,content,created_at,updated_at")
+      .eq("slug", params.slug)
+      .single();
+    if (!error && data) {
+      post = {
+        id: data.id,
+        title: data.title,
+        slug: data.slug,
+        excerpt: data.excerpt,
+        content: data.content,
+        date: data.created_at,
+        updated_at: data.updated_at,
+      };
+    }
+  } catch (e) {
+    // ignore and fallback
+  }
+
+  if (!post) {
+    post = staticPosts.find((p) => p.slug === params.slug) || null;
+  }
 
   if (!post) {
     return (
@@ -16,6 +42,8 @@ export default function DiscoursesPostPage({ params }) {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white pb-16 px-4">
+      {/* Inline editor will only show to logged-in admins and allows updating the post in-place */}
+      <EditPostInline initialPost={post} slug={params.slug} />
       <article className="max-w-3xl mx-auto bg-gray-900 rounded-lg shadow-lg border border-gray-800 p-8">
         <h1 className="text-4xl font-extrabold mb-2">{post.title}</h1>
         <p className="text-gray-400 text-sm mb-6">{new Date(post.date).toLocaleDateString()}</p>
@@ -26,5 +54,5 @@ export default function DiscoursesPostPage({ params }) {
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  return staticPosts.map((post) => ({ slug: post.slug }));
 }
