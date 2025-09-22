@@ -53,7 +53,7 @@ export default function Navbar() {
         {/* Center: Desktop Navigation Links */}
         <div className="hidden md:flex justify-center space-x-8">
           <Link href="/" className="text-lg hover:text-gray-400 transition">Home</Link>
-          <Link href="/blog" className="text-lg hover:text-gray-400 transition">Discourses</Link>
+          <Link href="/discourses" className="text-lg hover:text-gray-400 transition">Discourses</Link>
           <Link href="/events" className="text-lg hover:text-gray-400 transition">Events</Link>
           <Link href="/about" className="text-lg hover:text-gray-400 transition">About</Link>
         </div>
@@ -89,7 +89,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="absolute top-14 left-0 w-full bg-black text-white flex flex-col items-center space-y-4 py-6 md:hidden z-40">
           <Link href="/" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/blog" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Discourses</Link>
+          <Link href="/discourses" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Discourses</Link>
           <Link href="/events" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>Events</Link>
           <Link href="/about" className="text-lg hover:text-gray-400 transition" onClick={() => setMenuOpen(false)}>About</Link>
 
