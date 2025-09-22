@@ -56,20 +56,50 @@ export default function DiscoursesAdmin() {
       return;
     }
     if (editingId) {
-      const { error } = await supabase
-        .from("blog_posts")
-        .update({ ...form, updated_at: new Date() })
-        .eq("id", editingId);
-      if (error) setError(error.message);
-      else {
+      // attempt to update including content; if DB lacks content column, retry without it
+      const payload = { ...form, updated_at: new Date() };
+      let { error } = await supabase.from("blog_posts").update(payload).eq("id", editingId);
+      if (error) {
+        const msg = String(error.message || error);
+        if (msg.includes("Could not find the 'content' column") || msg.includes('schema cache')) {
+          const payloadNoContent = { ...payload };
+          delete payloadNoContent.content;
+          const retry = await supabase.from("blog_posts").update(payloadNoContent).eq("id", editingId);
+          if (retry.error) setError(retry.error.message);
+          else {
+            setEditingId(null);
+            setForm({ title: "", slug: "", excerpt: "", content: "" });
+            setStatusMessage("Updated (content column missing in DB — content was not saved). Consider adding a `content` column to enable full edits.");
+            fetchPosts();
+          }
+        } else {
+          setError(error.message || String(error));
+        }
+      } else {
         setEditingId(null);
         setForm({ title: "", slug: "", excerpt: "", content: "" });
         fetchPosts();
       }
     } else {
-      const { error } = await supabase.from("blog_posts").insert([{ ...form }]);
-      if (error) setError(error.message);
-      else {
+      // insert; if content column missing, retry without content and show guidance
+      const payload = { ...form };
+      let { error } = await supabase.from("blog_posts").insert([payload]);
+      if (error) {
+        const msg = String(error.message || error);
+        if (msg.includes("Could not find the 'content' column") || msg.includes('schema cache')) {
+          const payloadNoContent = { ...payload };
+          delete payloadNoContent.content;
+          const retry = await supabase.from("blog_posts").insert([payloadNoContent]);
+          if (retry.error) setError(retry.error.message);
+          else {
+            setForm({ title: "", slug: "", excerpt: "", content: "" });
+            setStatusMessage("Created (content column missing in DB — content was not stored). Please add a `content` column to enable full posts.");
+            fetchPosts();
+          }
+        } else {
+          setError(error.message || String(error));
+        }
+      } else {
         setForm({ title: "", slug: "", excerpt: "", content: "" });
         fetchPosts();
       }
