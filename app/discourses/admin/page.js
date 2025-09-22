@@ -22,7 +22,8 @@ export default function DiscoursesAdmin() {
   async function fetchPosts() {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, created_at")
+      // include content and updated_at so the edit form can be populated
+      .select("id, title, slug, excerpt, content, created_at, updated_at")
       .order("created_at", { ascending: false });
     if (!error) setPosts(data);
   }
