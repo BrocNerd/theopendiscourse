@@ -1,9 +1,33 @@
 import Link from "next/link";
-import { blogPosts } from "./posts/data";
+import { blogPosts as staticPosts } from "./posts/data";
+import { supabase } from "@/utils/supabase";
 
-export default function DiscoursesPage() {
-  // Sort posts by date (most recent first)
-  const posts = [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+export default async function DiscoursesPage() {
+  // Try fetching posts from Supabase first so admin-created posts appear
+  let posts = [];
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, content, created_at")
+      .order("created_at", { ascending: false });
+    if (!error && data && data.length > 0) {
+      posts = data.map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        date: p.created_at || p.date,
+        excerpt: p.excerpt || "",
+        content: p.content || "",
+      }));
+    }
+  } catch (err) {
+    // ignore and fallback to static posts
+  }
+
+  if (!posts || posts.length === 0) {
+    // Fallback to bundled static posts
+    posts = [...staticPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
   const [latest, ...others] = posts;
 
   return (
