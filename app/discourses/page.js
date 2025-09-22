@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { blogPosts as staticPosts } from "./posts/data";
 import { supabase } from "@/utils/supabase";
+import NewPostButton from "@/components/NewPostButton";
 
 export default async function DiscoursesPage() {
   // Try fetching posts from Supabase first so admin-created posts appear
@@ -36,6 +37,10 @@ export default async function DiscoursesPage() {
       <section className="text-center py-16 px-4">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Discourses</h1>
       </section>
+
+      {/* Admin New Post Button (visible only to logged-in admins) */}
+      {/* NewPostButton is a client component that checks supabase auth */}
+      <NewPostButton />
 
       {/* Most Recent Blog Post */}
       {latest && (
