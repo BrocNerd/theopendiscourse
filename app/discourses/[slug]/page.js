@@ -2,6 +2,9 @@ import EditPostInline from "@/components/EditPostInline";
 import { blogPosts as staticPosts } from "../posts/data";
 import { supabase } from "@/utils/supabase";
 
+// Force dynamic rendering so the post page always reads fresh data from Supabase
+export const dynamic = "force-dynamic";
+
 export default async function DiscoursesPostPage({ params }) {
   let post = null;
   try {

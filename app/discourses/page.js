@@ -3,6 +3,10 @@ import { blogPosts as staticPosts } from "./posts/data";
 import { supabase } from "@/utils/supabase";
 import NewPostButton from "@/components/NewPostButton";
 
+// Force this route to be dynamically rendered on every request so
+// Supabase reads are always fresh and not served from a build-time cache.
+export const dynamic = "force-dynamic";
+
 export default async function DiscoursesPage() {
   // Try fetching posts from Supabase first so admin-created posts appear
   let posts = [];
